@@ -18,19 +18,22 @@ public class HeightBoostingCollectible : CommonCollectible
 
     public override void Collect(GameObject collectorObject)
     {
-        StartCoroutine(BoostSpeed(collectorObject.GetComponent<FirstPersonController>()));
+        StartCoroutine(BoostHeight(collectorObject.GetComponent<FirstPersonController>()));
+
         GetComponent<Renderer>().enabled = false;
+        disableCollect = true;
+        Debug.Log("disabled");
     }
 
-    private IEnumerator BoostSpeed(FirstPersonController player)
+    private IEnumerator BoostHeight(FirstPersonController player)
     {
         player.JumpHeight += BoostAmount;
-        // Debug.Log($"boosted 2 {player.JumpHeight}!!!");
+        Debug.Log($"boosted 2 {player.JumpHeight}!!!");
 
         yield return new WaitForSeconds(CooldownTime);
 
         player.JumpHeight -= BoostAmount;
-        // Debug.Log($"back @ {player.JumpHeight}...");
+        Debug.Log($"back @ {player.JumpHeight}...");
         Destroy(this);
     }
 }

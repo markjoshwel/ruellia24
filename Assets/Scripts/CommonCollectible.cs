@@ -11,6 +11,8 @@ using UnityEngine;
 /// </summary>
 public class CommonCollectible : MonoBehaviour
 {
+    protected bool disableCollect = false;
+
     /// <summary>
     /// virtual collect function that is called OnCollisionEnter or OnTriggerEnter
     /// </summary>
@@ -21,12 +23,22 @@ public class CommonCollectible : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        if (disableCollect)
+        {
+            return;
+        }
+
         Debug.Log($"common hit {other.gameObject}");
         Collect(other.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (disableCollect)
+        {
+            return;
+        }
+
         Debug.Log($"common hit {other.gameObject}");
         Collect(other.gameObject);
     }

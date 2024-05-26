@@ -19,20 +19,23 @@ public class SpeedBoostingCollectible : CommonCollectible
     public override void Collect(GameObject collectorObject)
     {
         StartCoroutine(BoostSpeed(collectorObject.GetComponent<FirstPersonController>()));
+
         GetComponent<Renderer>().enabled = false;
+        disableCollect = true;
+        Debug.Log("disabled");
     }
 
     private IEnumerator BoostSpeed(FirstPersonController player)
     {
         player.MoveSpeed += BoostAmount;
         player.SprintSpeed += BoostAmount;
-        // Debug.Log($"boosted 2 {player.MoveSpeed} & {player.SprintSpeed}!!!");
+        Debug.Log($"boosted 2 {player.MoveSpeed} & {player.SprintSpeed}!!!");
 
         yield return new WaitForSeconds(CooldownTime);
 
         player.MoveSpeed -= BoostAmount;
         player.SprintSpeed -= BoostAmount;
-        // Debug.Log($"back @ {player.MoveSpeed} & {player.SprintSpeed}...");
+        Debug.Log($"back @ {player.MoveSpeed} & {player.SprintSpeed}...");
         Destroy(this);
     }
 }
